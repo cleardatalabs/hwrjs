@@ -9,3 +9,7 @@ Neural based handwritten character recognition demo application made in JavaScri
 
 # Try Online!
 https://cleardatalabs.github.io/hwrjs/
+
+# How it works
+All the magic happens in frontend, no backend interactions or 3rd party api calls.
+3 layer perceptron with backpropagation learning algorithm is currently used as model.
