@@ -1,0 +1,25 @@
+<div class="canvasHolder">
+  <div class="topHint">
+    <span>Draw any character here</span>
+    <span class="clear" (click)="onClear()">[ clear ]</span>
+  </div>
+  <canvas #canvas 
+	  (mousedown)="onDown()"
+	  (mouseup)="onUp()"
+	  (mousemove)="onMove($event)" 
+	  (touchmove)="onTouchMove($event)">
+  </canvas>
+</div>
+<div class="samplesHolder">
+  <span>Add it to the learn list</span>
+  <br/>
+  <br/> 
+  <input #letter />
+  <button (click)="addSample(letter.value); letter.value=''">Add</button>
+  <ul class="samples">
+    <li *ngFor='let sampleGroup of sampleGroups' >
+      <span class="sample">{{sampleGroup.letter}}</span> [{{sampleGroup.count}}]
+    </li>
+  </ul>
+</div>
+<div class="separator"></div>

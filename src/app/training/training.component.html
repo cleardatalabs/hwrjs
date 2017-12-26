@@ -1,0 +1,14 @@
+<div class="netConrols">
+	<div *ngIf="!trainingStarted" class="control" (click)="create()">
+	  [train]
+	</div>
+	<div *ngIf="trainingStarted" class="control" (click)="create()">
+	  [stop]
+	</div>
+	<div>&nbsp;{{progress}}</div>
+	<div class="control" (click)="check()">
+	  [check]
+	</div>
+	<div class="result">{{result}}</div>
+</div>
+
