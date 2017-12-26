@@ -1,10 +1,11 @@
 # HwrJs
-Neural based handwritten character recognition demo application made in JavaScript.
+Neural based handwritten character recognition demo application made in JavaScript (Angular).
 
-# How To
-- create set of samples for learning
-- configure and train the neural network
-- get writtings recorgnized
+# How To Use
+1. Draw any char, type what it is and add it to the learn list 
+2. Repeat to add more chars and more samples of same chars
+3. Create and train neural model by clicking [train], after several iterations [stop] the training
+4. Draw any char and click [check] to get it recorgnized
 
 # Try Online!
-http://example.com
+https://cleardatalabs.github.io/hwrjs/
