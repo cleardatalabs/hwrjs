@@ -8,6 +8,8 @@ Try Online: https://cleardatalabs.github.io/hwrjs/
 3. Create and train neural model by clicking [train], after several iterations [stop] the training
 4. Draw any char and click [check] to get it recognized
 
+![usage animation](https://cleardatalabs.github.io/hwrjs/usage.gif)
+
 # How it works
 All the magic happens in frontend, no backend interactions or 3-rd party api calls.
 3 layer perceptron with backpropagation learning algorithm is currently used as a model.
