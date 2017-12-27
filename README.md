@@ -1,5 +1,5 @@
 # HwrJs
-Neural based handwritten character recognition demo application made in JavaScript (Angular).
+Neural network based handwritten character recognition demo application made in JavaScript (Angular).
 Try Online: https://cleardatalabs.github.io/hwrjs/ 
 
 # Usage
@@ -10,4 +10,14 @@ Try Online: https://cleardatalabs.github.io/hwrjs/
 
 # How it works
 All the magic happens in frontend, no backend interactions or 3-rd party api calls.
-3 layer perceptron with backpropagation learning algorithm is currently used as model.
+3 layer perceptron with backpropagation learning algorithm is currently used as a model.
+
+# Quick start
+Pre-requisites: nodejs & npm
+```
+git clone https://github.com/cleardatalabs/hwrjs.git
+cd hwrjs
+npm install
+ng serve --open
+```
+
