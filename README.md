@@ -12,7 +12,7 @@ Try Online: https://cleardatalabs.github.io/hwrjs/
 
 # How it works
 All the magic happens in frontend, no backend interactions or 3-rd party api calls.
-3 layer perceptron with backpropagation learning algorithm is currently used as a model.
+3 layer perceptron with backpropagation learning algorithm is currently used as a model. Some implementation details and a little bit of theory present on [Wiki](https://github.com/cleardatalabs/hwrjs/wiki)
 
 # Quick start
 Pre-requisites: nodejs & npm
