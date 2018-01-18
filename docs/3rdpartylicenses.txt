@@ -70,3 +70,15 @@ THE SOFTWARE.
 @angular/core@4.4.6
 MIT
 MIT
+
+@angular/forms@4.4.6
+MIT
+MIT
+
+@angular/platform-browser@4.4.6
+MIT
+MIT
+
+@angular/common@4.4.6
+MIT
+MIT
