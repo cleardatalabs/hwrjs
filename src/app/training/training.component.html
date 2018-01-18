@@ -1,14 +1,20 @@
 <div class="netConrols">
-	<div *ngIf="!trainingStarted" class="control" (click)="create()">
-	  [train]
-	</div>
-	<div *ngIf="trainingStarted" class="control" (click)="create()">
-	  [stop]
-	</div>
-	<div>&nbsp;{{progress}}</div>
-	<div class="control" (click)="check()">
-	  [check]
-	</div>
-	<div class="result">{{result}}</div>
+	<span *ngIf="!trainingStarted" class="control" (click)="create()">
+	  [ train ]
+	</span>
+	<span *ngIf="trainingStarted" class="control" (click)="create()">
+	  [ stop ]
+	</span>
+		&nbsp;&nbsp;&nbsp;
+    <span class="control" (click)="check()">
+	  [ check ]
+	</span>
+
+	<br />
+    <br />
+	<div>MSE Initial: {{errInital}}</div>
+	<div>MSE Current: {{errCurrent}}</div>
+	<div>Iterations: {{iterations}}</div>
+	
 </div>
 

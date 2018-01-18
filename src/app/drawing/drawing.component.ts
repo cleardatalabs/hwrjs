@@ -1,8 +1,8 @@
 import { Point } from '../domain/point';
-import { Sample } from '../domain/sample';
 import { SampleGroup } from '../domain/samplegroup';
 import { SamplesService } from '../services/samples.service';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import {TrainingService} from "../services/training.service";
 
 @Component({
   selector: 'app-drawing',
@@ -17,11 +17,19 @@ export class DrawingComponent implements OnInit {
 
   sampleGroups: SampleGroup[] = [];
 
-  constructor(private samplesService: SamplesService) { }
+  constructor(private samplesService: SamplesService, private trainingService: TrainingService) { }
 
   ngOnInit() {
     this.fitToContainer(this.canvasRef.nativeElement);
     this.cx = this.canvasRef.nativeElement.getContext('2d');
+
+    this.trainingService.result$.subscribe(res => {
+        this.onClear();
+        this.drawChar(res);
+        setTimeout(() => {
+            this.onClear()
+        }, 1000);
+    })
   }
 
   fitToContainer(canvas) {
@@ -78,6 +86,15 @@ export class DrawingComponent implements OnInit {
     this.samplesService.addSample({letter: letter, points: this.samplesService.points});
     this.onClear();
     this.sampleGroups = this.samplesService.sampleGroups;
-    // alert(letter + ' ' + this.points.length + ' ' + this.samplesService.sampleGroups.length);
+  }
+
+  drawChar(letter: string) {
+      this.cx.textBaseline = 'middle';
+      this.cx.textAlign = 'center';
+
+      this.cx.canvas.height;
+      this.cx.font = Math.floor(this.cx.canvas.height/2) + "px Arial";
+
+      this.cx.fillText(letter, this.cx.canvas.width/2, this.cx.canvas.height/2);
   }
 }

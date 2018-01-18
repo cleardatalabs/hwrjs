@@ -10,8 +10,9 @@ export class TrainingComponent implements OnInit {
 
   constructor(private trainingService: TrainingService) { }
 
-  progress = '';
-  result = '';
+  errInital = 0;
+  errCurrent = 0;
+  iterations = 0;
   trainingStarted = false;
 
   ngOnInit() {
@@ -20,6 +21,8 @@ export class TrainingComponent implements OnInit {
   create() {
     if (!this.trainingService.net) {
       this.trainingService.createNet();
+      this.errInital = this.trainingService.calcMSE();
+      this.iterations = 0;
     }
 
     this.trainingStarted = !this.trainingStarted;
@@ -29,18 +32,17 @@ export class TrainingComponent implements OnInit {
   train() {
     if (this.trainingStarted) {
       this.trainingService.trainCycle();
-      this.progress += '. ';
+      this.iterations += this.trainingService.itersPerCycle;
+      this.errCurrent = this.trainingService.calcMSE();
+
       setTimeout(() => {
         this.train();
-      }, 100);
+      }, 50);
     }
   }
 
   check() {
-    this.result = this.trainingService.getResult();
-    setTimeout(() => {
-      this.result = '';
-    }, 1000);
+    this.trainingService.getResult();
   }
 
 }

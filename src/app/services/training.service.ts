@@ -2,11 +2,16 @@ import {NNet} from '../domain/nnet';
 import { TrainData } from '../domain/traindata';
 import { SamplesService } from './samples.service';
 import {Injectable} from '@angular/core';
+import {Subject} from "rxjs/Subject";
 
 @Injectable()
 export class TrainingService {
 
   constructor(private samplesService: SamplesService) {}
+
+  itersPerCycle = 100;
+  private resultSource = new Subject<string>();
+  result$ = this.resultSource.asObservable();
 
   net: NNet;
   trainData: TrainData[];
@@ -19,7 +24,7 @@ export class TrainingService {
       = this.samplesService.sampleGroups.length;
 
     this.net = new NNet(numInputs,
-      [ numInputs, Math.floor((numInputs + numOutputs) / 2), numOutputs ]);
+      [ numInputs, numOutputs ]);
 
     this.trainData = this.samplesService.getTrainData();
 
@@ -27,14 +32,26 @@ export class TrainingService {
   }
 
   trainCycle() {
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < this.itersPerCycle; i++) {
       for (const trainSet of this.trainData) {
         this.net.trainSample(trainSet.inputs, trainSet.outputs);
       }
     }
   }
 
-  getResult(): string {
+  calcMSE(): number {
+    let err = 0.;
+
+      for (const trainSet of this.trainData) {
+        this.net.propForward(trainSet.inputs);
+        err += this.net.layers[this.net.layers.length - 1].errorsForSelf(trainSet.outputs)
+          .reduce((a, b) => a + b * b, 0);
+      }
+
+    return err / this.trainData.length;
+  }
+
+  getResult() {
     const out = this.net.propForward(this.samplesService.gridFromSample({
       points: this.samplesService.points,
       letter: null
@@ -49,6 +66,8 @@ export class TrainingService {
       }
     }
 
-    return this.samplesService.sampleGroups[maxIndex].letter;
+
+    let res = this.samplesService.sampleGroups[maxIndex].letter;
+    this.resultSource.next(res);
   }
 }

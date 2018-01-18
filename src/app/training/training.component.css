@@ -1,11 +1,11 @@
 .netConrols {
 	margin-top: 3.4em;
-	font-weight: bold;
 	margin-left: 5%;
 }
 
 .control {
 	cursor: pointer;
+	font-weight: bold;
 }
 
 .control:hover {
