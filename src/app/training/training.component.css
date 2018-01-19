@@ -3,17 +3,18 @@
 	margin-left: 5%;
 }
 
+.trainInfo {
+	margin-top: 1em !important;
+	font-style: italic;
+}
+
+
 .control {
+	user-select: none;
 	cursor: pointer;
 	font-weight: bold;
 }
 
 .control:hover {
   	color: #607D8B;	
-}
-
-.result {
-	color: black;
-	font-weight: bold;
-	font-size: 250%
 }

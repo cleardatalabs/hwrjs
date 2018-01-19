@@ -14,6 +14,7 @@ export class DrawingComponent implements OnInit {
   @ViewChild('canvas') canvasRef: ElementRef;
   private cx: CanvasRenderingContext2D;
   private isDrawing: Boolean = false;
+  private lastPoint: Point;
 
   sampleGroups: SampleGroup[] = [];
 
@@ -46,6 +47,7 @@ export class DrawingComponent implements OnInit {
 
   onUp() {
     this.isDrawing = false;
+    this.lastPoint = null;
   }
 
   onMove(src: MouseEvent) {
@@ -63,9 +65,16 @@ export class DrawingComponent implements OnInit {
     this.samplesService.points.push(point);
 
     this.cx.beginPath();
-    this.cx.arc(point.x, point.y, 3, 0, 2 * Math.PI, false);
-    this.cx.fillStyle = 'black';
-    this.cx.fill();
+      this.cx.lineWidth = 10;
+      this.cx.lineCap = 'round';
+
+    if (this.lastPoint)
+      this.cx.moveTo(this.lastPoint.x, this.lastPoint.y);
+
+    this.cx.lineTo(point.x, point.y);
+    this.lastPoint = point;
+
+    this.cx.stroke();
   }
 
   onTouchMove(src: TouchEvent) {
@@ -93,7 +102,7 @@ export class DrawingComponent implements OnInit {
       this.cx.textAlign = 'center';
 
       this.cx.canvas.height;
-      this.cx.font = Math.floor(this.cx.canvas.height/2) + "px Arial";
+      this.cx.font = Math.floor(this.cx.canvas.height * 0.75) + "px Arial";
 
       this.cx.fillText(letter, this.cx.canvas.width/2, this.cx.canvas.height/2);
   }
