@@ -1,10 +1,12 @@
-<div class="canvasHolder">
+<div class="canvasHolder" (window:resize)="fitToContainer()">
   <div class="topHint">
-    <span>Draw any character here</span>
+    <span>Draw a char here</span>
     <span class="clear" (click)="onClear()">[ clear ]</span>
   </div>
   <canvas #canvas 
 	  (mousedown)="onDown()"
+          (touchstart)="onDown()"
+          (touchend)="onUp()"
 	  (mouseup)="onUp()"
 	  (mousemove)="onMove($event)" 
 	  (touchmove)="onTouchMove($event)">

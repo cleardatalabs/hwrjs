@@ -4,6 +4,8 @@
 	margin-left: 5%;
 	margin-right: 2%;
 	float: left;
+	min-width: 240px;
+	margin-bottom: 3.4em;
 }
 
 .canvasHolder canvas {
@@ -21,6 +23,7 @@
 	margin-right: 5%;
 	height: 50%;
 	float: left;
+	min-width: 280px;
 }
 
 .clear {

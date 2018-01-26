@@ -12,6 +12,7 @@ h2, h3 {
 body {
   margin: 2em;
   font-size: 120%;
+  overscroll-behavior-y: contain;
 }
 body, input[text], button {
   color: #888;

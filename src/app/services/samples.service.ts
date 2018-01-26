@@ -16,8 +16,8 @@ export class SamplesService {
 
   private letterIndex: SampleGroup[] = [];
 
-  sensorWidth = 6;
-  sensorHeihht = 8;
+  sensorWidth = 12;
+  sensorHeihht = 12;
 
   // TODO : use map
   addSample(sample: Sample) {

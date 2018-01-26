@@ -21,7 +21,7 @@ export class DrawingComponent implements OnInit {
   constructor(private samplesService: SamplesService, private trainingService: TrainingService) { }
 
   ngOnInit() {
-    this.fitToContainer(this.canvasRef.nativeElement);
+    this.fitToContainer();
     this.cx = this.canvasRef.nativeElement.getContext('2d');
 
     this.trainingService.result$.subscribe(res => {
@@ -33,7 +33,8 @@ export class DrawingComponent implements OnInit {
     })
   }
 
-  fitToContainer(canvas) {
+  fitToContainer() {
+    let canvas = this.canvasRef.nativeElement;
     canvas.style.width = '100%';
     canvas.style.height = '100%';
 
@@ -84,6 +85,8 @@ export class DrawingComponent implements OnInit {
       x: src.touches.item(0).clientX - rect.left,
       y: src.touches.item(0).clientY - rect.top
     });
+
+    src.preventDefault();
   }
 
   onClear() {
