@@ -27,4 +27,4 @@ ng serve --open
 Project is free and non-commercial. However support and feedback really matters! If you found it interesting we'd appreciate:
 - submitting an issue or suggesting a change via pull request
 - giving project a star on GitHub
-- following us on ![Twitter](https://twitter.com/ClearDataLabs)
+- following us on [Twitter](https://twitter.com/ClearDataLabs)
