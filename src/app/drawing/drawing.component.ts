@@ -38,8 +38,10 @@ export class DrawingComponent implements OnInit {
     canvas.style.width = '100%';
     canvas.style.height = '100%';
 
-    canvas.width  = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+    if (canvas.width  !== canvas.offsetWidth) {
+        canvas.width  = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+    }
   }
 
   onDown() {
