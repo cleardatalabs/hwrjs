@@ -64,6 +64,12 @@
   font-weight: bold;	
 }
 
+.output {
+	height: 4px;
+	margin-top: 2px;
+	background: #369;
+}
+
 input {
   margin: .5em;
   width: 7em;

@@ -29,7 +29,7 @@ export class DrawingComponent implements OnInit {
         this.drawChar(res);
         setTimeout(() => {
             this.onClear()
-        }, 1000);
+        }, 1500);
     })
   }
 
@@ -94,6 +94,10 @@ export class DrawingComponent implements OnInit {
   onClear() {
     this.samplesService.points = [];
     this.cx.clearRect(0, 0, this.canvasRef.nativeElement.width, this.canvasRef.nativeElement.height);
+
+    for (let i=0; i<this.sampleGroups.length; i++) {
+      this.sampleGroups[i].out = 0;
+    }
   }
 
   addSample(letter: string) {
@@ -110,5 +114,10 @@ export class DrawingComponent implements OnInit {
       this.cx.font = Math.floor(this.cx.canvas.height * 0.75) + "px Arial";
 
       this.cx.fillText(letter, this.cx.canvas.width/2, this.cx.canvas.height/2);
+
+      for (let i=0; i<this.sampleGroups.length; i++) {
+          this.sampleGroups[i].out = 100 *
+              this.trainingService.net.layers[this.trainingService.net.layers.length-1].getOutputs()[i];
+      }
   }
 }

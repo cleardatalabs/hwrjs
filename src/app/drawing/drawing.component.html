@@ -21,6 +21,7 @@
   <ul class="samples">
     <li *ngFor='let sampleGroup of sampleGroups' >
       <span class="sample">{{sampleGroup.letter}}</span> [{{sampleGroup.count}}]
+        <div class="output" [style.width.%]="sampleGroup.out">&nbsp;</div>
     </li>
   </ul>
 </div>

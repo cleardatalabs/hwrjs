@@ -24,7 +24,7 @@ export class SamplesService {
     console.log('add sample 1');
     console.log(this.letterIndex[sample.letter]);
     if (this.letterIndex[sample.letter] === undefined) {
-      const group: SampleGroup = {letter: sample.letter, count: 0};
+      const group: SampleGroup = {letter: sample.letter, count: 0, out: 0};
       this.letterIndex[sample.letter] = group;
       this.sampleGroups.push(group);
       console.log(this.sampleGroups);
