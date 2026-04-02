@@ -1,6 +1,6 @@
 import { Point } from './point';
 
-export class Sample {
-  letter: string;
+export interface Sample {
+  letter: string | null;
   points: Point[];
 }

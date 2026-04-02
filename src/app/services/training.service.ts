@@ -1,10 +1,10 @@
-import {NNet} from '../domain/nnet';
+import { NNet } from '../domain/nnet';
 import { TrainData } from '../domain/traindata';
 import { SamplesService } from './samples.service';
-import {Injectable} from '@angular/core';
-import {Subject} from "rxjs/Subject";
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TrainingService {
 
   constructor(private samplesService: SamplesService) {}
@@ -18,17 +18,13 @@ export class TrainingService {
 
   createNet() {
     const numInputs
-      = this.samplesService.sensorWidth * this.samplesService.sensorHeihht;
+      = this.samplesService.sensorWidth * this.samplesService.sensorHeight;
 
     const numOutputs
       = this.samplesService.sampleGroups.length;
 
-    this.net = new NNet(numInputs,
-      [ numInputs, numOutputs ]);
-
+    this.net = new NNet(numInputs, [numInputs, numOutputs]);
     this.trainData = this.samplesService.getTrainData();
-
-    console.log('Net created');
   }
 
   trainCycle() {
@@ -40,14 +36,12 @@ export class TrainingService {
   }
 
   calcMSE(): number {
-    let err = 0.;
-
-      for (const trainSet of this.trainData) {
-        this.net.propForward(trainSet.inputs);
-        err += this.net.layers[this.net.layers.length - 1].errorsForSelf(trainSet.outputs)
-          .reduce((a, b) => a + b * b, 0);
-      }
-
+    let err = 0;
+    for (const trainSet of this.trainData) {
+      this.net.propForward(trainSet.inputs);
+      err += this.net.layers[this.net.layers.length - 1].errorsForSelf(trainSet.outputs)
+        .reduce((a, b) => a + b * b, 0);
+    }
     return err / this.trainData.length;
   }
 
@@ -66,8 +60,7 @@ export class TrainingService {
       }
     }
 
-
-    let res = this.samplesService.sampleGroups[maxIndex].letter;
+    const res = this.samplesService.sampleGroups[maxIndex].letter;
     this.resultSource.next(res);
   }
 }

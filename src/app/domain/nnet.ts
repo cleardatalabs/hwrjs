@@ -1,10 +1,9 @@
-import {NLayer} from './nlayer';
+import { NLayer } from './nlayer';
 
 export class NNet {
   layers: NLayer[] = [];
 
   constructor(numInputs: number, numNeuronsPerLayer: number[]) {
-    this.layers = new Array();
     this.layers.push(new NLayer(numNeuronsPerLayer[0], numInputs));
     for (let i = 1; i < numNeuronsPerLayer.length; i++) {
       this.layers.push(new NLayer(numNeuronsPerLayer[i], numNeuronsPerLayer[i - 1]));

@@ -4,98 +4,69 @@ import { SampleGroup } from '../domain/samplegroup';
 import { TrainData } from '../domain/traindata';
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SamplesService {
-
-  constructor() { }
 
   points: Point[] = [];
 
   private samples: Sample[] = [];
   sampleGroups: SampleGroup[] = [];
 
-  private letterIndex: SampleGroup[] = [];
+  private letterIndex = new Map<string, SampleGroup>();
 
   sensorWidth = 12;
-  sensorHeihht = 12;
+  sensorHeight = 12;
 
-  // TODO : use map
   addSample(sample: Sample) {
-    console.log('add sample 1');
-    console.log(this.letterIndex[sample.letter]);
-    if (this.letterIndex[sample.letter] === undefined) {
-      const group: SampleGroup = {letter: sample.letter, count: 0, out: 0};
-      this.letterIndex[sample.letter] = group;
+    if (sample.letter === null) { return; }
+    const existing = this.letterIndex.get(sample.letter);
+    if (existing === undefined) {
+      const group: SampleGroup = { letter: sample.letter, count: 0, out: 0 };
+      this.letterIndex.set(sample.letter, group);
       this.sampleGroups.push(group);
-      console.log(this.sampleGroups);
       if (sample.points.length > 0) {
         group.count++;
         this.samples.push(sample);
       }
     } else {
       if (sample.points.length > 0) {
-        this.letterIndex[sample.letter].count++;
+        existing.count++;
         this.samples.push(sample);
       }
     }
   }
 
-
   outputFromSample(sample: Sample): number[] {
     const outputs = [];
-
     for (let i = 0; i < this.sampleGroups.length; i++) {
-      if (this.sampleGroups[i].letter === sample.letter) {
-        outputs.push(1);
-      } else {
-        outputs.push(0);
-      }
+      outputs.push(this.sampleGroups[i].letter === sample.letter ? 1 : 0);
     }
-
     return outputs;
   }
 
-  // TODO: split into 2
-  gridFromSample(sample: Sample): number[] {
+  private getBoundingBox(points: Point[]): { minX: number; minY: number; maxX: number; maxY: number } {
     let maxX = -Infinity, maxY = -Infinity;
     let minX = Infinity, minY = Infinity;
-    for (const point of sample.points) {
-      if (point.x > maxX) {
-        maxX = point.x;
-      }
-      if (point.x < minX) {
-        minX = point.x;
-      }
-
-      if (point.y > maxY) {
-        maxY = point.y;
-      }
-      if (point.y < minY) {
-        minY = point.y;
-      }
+    for (const point of points) {
+      if (point.x > maxX) { maxX = point.x; }
+      if (point.x < minX) { minX = point.x; }
+      if (point.y > maxY) { maxY = point.y; }
+      if (point.y < minY) { minY = point.y; }
     }
+    return { minX, minY, maxX, maxY };
+  }
 
-    console.log(minX + ' ' + minY + ' ' + maxX + ' ' + maxY);
+  gridFromSample(sample: Sample): number[] {
+    const { minX, minY, maxX, maxY } = this.getBoundingBox(sample.points);
 
-    const gridPoints = new Array(this.sensorWidth * this.sensorHeihht);
-    gridPoints.fill(0);
+    const gridPoints = new Array(this.sensorWidth * this.sensorHeight).fill(0);
 
     for (const point of sample.points) {
       const gridX = this.sensorWidth * (point.x - minX) / (maxX - minX + 1);
-      const gridY = this.sensorHeihht * (point.y - minY) / (maxY - minY + 1);
-
+      const gridY = this.sensorHeight * (point.y - minY) / (maxY - minY + 1);
       gridPoints[Math.floor(gridX) + this.sensorWidth * Math.floor(gridY)] = 1;
-      console.log(Math.floor(gridX) + ' ' + Math.floor(gridY));
     }
 
-    let res = '';
-    for (let i = 0; i < gridPoints.length; i++) {
-      if ((i % this.sensorWidth) === 0) {
-        res += '\n';
-      }
-      res += gridPoints[i];
-    }
-    console.log(res);
     return gridPoints;
   }
 

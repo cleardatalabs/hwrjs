@@ -1,10 +1,10 @@
 import { NNeuron } from './nneuron';
+
 export class NLayer {
   neurons: NNeuron[] = [];
   numInputs = 0;
 
   constructor(numNeurons: number, numInputs: number) {
-    this.neurons = new Array();
     this.numInputs = numInputs;
     for (let i = 0; i < numNeurons; i++) {
       this.neurons.push(new NNeuron(numInputs));
@@ -25,15 +25,14 @@ export class NLayer {
     return outputs;
   }
 
-  // TODO: move to neuron
   calcOwnError(errors: number[]) {
     for (let i = 0; i < this.neurons.length; i++) {
-      this.neurons[i].error = errors[i] * this.neurons[i].sigmaDelta();
+      this.neurons[i].calcError(errors[i]);
     }
   }
 
   errorsForSelf(targets: number[]): number[] {
-    const errors: number[] = new Array();
+    const errors: number[] = [];
     for (let i = 0; i < this.neurons.length; i++) {
       errors.push(this.neurons[i].output - targets[i]);
     }
@@ -41,7 +40,7 @@ export class NLayer {
   }
 
   errorsForPrevious(): number[] {
-    const errors: number[] = new Array();
+    const errors: number[] = [];
     for (let i = 0; i < this.numInputs; i++) {
       let error = 0;
       for (const neuron of this.neurons) {

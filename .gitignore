@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Build output (dev / CI artifacts — not the demo page)
+dist/
+out-tsc/
+coverage/
+
+# Angular cache
+.angular/
+
+# OS / editor
+.DS_Store
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment secrets (never commit these)
+.env
+.env.*
+
+# docs/ is intentionally tracked — it is the GitHub Pages demo.
+# To update it, run: npm run build:docs
+# then flatten docs/browser/* → docs/ and commit.

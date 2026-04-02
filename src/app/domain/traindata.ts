@@ -1,4 +1,4 @@
-export class TrainData {
+export interface TrainData {
   inputs: number[];
   outputs: number[];
 }

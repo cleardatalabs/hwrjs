@@ -1,8 +1,11 @@
 import { TrainingService } from '../services/training.service';
 import { Component, OnInit } from '@angular/core';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-training',
+  standalone: true,
+  imports: [NgIf],
   templateUrl: './training.component.html',
   styleUrls: ['./training.component.css']
 })

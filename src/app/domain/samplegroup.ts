@@ -1,5 +1,5 @@
-export class SampleGroup {
+export interface SampleGroup {
   letter: string;
   count: number;
-  out: number = 0;
+  out: number;
 }
